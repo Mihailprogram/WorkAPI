@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'djoser',
-    'django_filters'
+    'django_filters',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -37,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'work.urls'
@@ -103,8 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_URLS_REGEX = r'^/api/.*$'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -131,7 +134,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "mihail.vjk@yandex.ru"
@@ -144,7 +147,6 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
-    # 'HIDE_USERS': False,
     'ACTIVATION_URL': 'api/activate/{uid}/{token}/',
     'SERIALIZERS': {
         'user_create': 'api.serializers.CreatUserSerializer',  # Настройте сериализатор для создания пользователя
